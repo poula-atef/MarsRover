@@ -11,9 +11,9 @@ as the starting point).<br>
 4- It will ask you to choose which mission you want to perform (the number of the part you want to test)
 and this menu will repeat itself after each mission until you press **Exit**.<br>
 
-### 1- Mission I ( PartI )
+## 1- Mission I ( PartI )
 When you choose 1 it will ask you for the path you want to follow, enter it and it will give you the final point after moving through this path<br><br>
-## Some examples on Mission 1: (Read the notes at the bottom of the file first)<br>
+### Some examples on Mission 1: (Read the notes at the bottom of the file first)<br>
 
 ### Test 1:
 Start Point -> (1,2) E<br>
@@ -33,10 +33,10 @@ Result: (5,2) South<br><br>
 ![P1 Form](https://user-images.githubusercontent.com/62244215/180887185-8bc38abd-83e8-4956-a654-9c2ca645ae47.png)<br><br><br><br>
 
 
-### Mission II ( PartII )
+## Mission II ( PartII )
 When you choose 2 ite will ask you for the path you want to follow and then the number of obstacles then the coordinates for each of them, then it will show you if it will
 stop at some point before hitting some obstacle or it will pass without hitting any obstacle.<br><br>
-## Some examples on Mission 2: (Read the notes at the bottom of the file first)<br>
+### Some examples on Mission 2: (Read the notes at the bottom of the file first)<br>
 
 ### Test 1:
 Start Point -> (1,1) E<br>
@@ -59,10 +59,10 @@ Result: (-3,-2) East STOPPED<br><br>
 **The Form Of Input In Mission 2**<br>
 ![P2 Form](https://user-images.githubusercontent.com/62244215/180889867-145796e2-0c21-435d-8808-a1a34796b813.png)<br><br><br><br>
 
-### Mission III ( PartIII )
+## Mission III ( PartIII )
 When you choose 3 it will ask you for the ending point and the obstacles then the coordinates for each of them, then it will show you the path between the starting 
 point (which you entered in the beginning) and the ending point avoiding all the obstacles.<br><br>
-## Some examples on Mission 3: (Read the notes at the bottom of the file first)<br>
+### Some examples on Mission 3: (Read the notes at the bottom of the file first)<br>
 
 ### Test 1:
 Start Point -> (1,1) E <br>
