@@ -14,10 +14,10 @@ class Point{
         this.y = y;
     }
 
-    public Point(int x, int y, String direction) {
-        this.x = x;
-        this.y = y;
-        this.direction = direction;
+    public Point(Point point) {
+        this.x = point.getX();
+        this.y = point.getY();
+        this.direction = point.getDirection();
     }
 
     public String getDirection() {

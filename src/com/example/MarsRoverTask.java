@@ -113,7 +113,8 @@ public class MarsRoverTask {
         Queue<Node> q = new LinkedList<>();
         Map<Node,Integer>visited = new HashMap<>();
 
-        Node parent = new Node(index);
+        Node parent = new Node();
+        parent.setPoint(index);
         q.add(parent);
 
         while(q.size() > 0){
@@ -121,71 +122,78 @@ public class MarsRoverTask {
             parent= q.poll();
             visited.put(parent,1);
 
-            if(parent.getX() == endPoint.getX() && parent.getY() == endPoint.getY())
+            if(parent.getPoint().getX() == endPoint.getX() && parent.getPoint().getY() == endPoint.getY())
                 break;
             if(obstacles.get(parent.getPoint()) != null)
                 continue;
+
 
             Node node = new Node(parent);
             node.goFront(
                     directions.get(
                             directionsIndexes.get(
-                                    node.getDirection()
+                                    node.getPointDirection()
                             )
                     )
             );
             node.setParent(parent);
+            node.setNodeDirection("F");
             if(visited.get(node) == null && obstacles.get(node.getPoint()) == null)
                 q.add(node);
 
 
 
+
+
             node = new Node(parent);
-            node.setDirection(
+            node.setPointDirection(
                     directionsSymbols.get(
                             (
                                     directionsIndexes.get(
-                                            node.getDirection()
+                                            node.getPointDirection()
                                     ) + 1
                             ) % 4
                     )
             );
             node.setParent(parent);
+            node.setNodeDirection("R");
             if(visited.get(node) == null && obstacles.get(node.getPoint()) == null)
                 q.add(node);
 
 
 
+
             node = new Node(parent);
-            node.setDirection(
+            node.setPointDirection(
                     directionsSymbols.get(
                             (
                                     directionsIndexes.get(
-                                            node.getDirection()
+                                            node.getPointDirection()
                                     ) - 1 + 4
                             ) % 4
                     )
             );
             node.setParent(parent);
+            node.setNodeDirection("L");
             if(visited.get(node) == null && obstacles.get(node.getPoint()) == null)
                 q.add(node);
 
         }
         StringBuilder builder = new StringBuilder();
 
-        while(parent != null){
-            builder.append(parent.getDirection());
+        while(parent.getParent() != null){
+            builder.append(parent.getNodeDirection());
             parent = parent.getParent();
         }
 
-        int size = builder.length();
+//        int size = builder.length();
 
-        for (int i = 0; i < size - 1; i++) {
-            if(builder.charAt(i) == builder.charAt(i + 1))
-                builder.setCharAt(i,'F');
-        }
+//        for (int i = 0; i < size - 1; i++) {
+//            if(builder.charAt(i) == builder.charAt(i + 1))
+//                builder.setCharAt(i,'F');
+//        }
 
-        builder.deleteCharAt(size - 1);
+//        builder.deleteCharAt(builder.length() - 1);
 
         return builder.reverse().toString();
     }

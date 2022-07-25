@@ -1,22 +1,27 @@
 package com.example;
 
-public class Node extends Point{
+public class Node{
     private Node parent;
     private Point point;
 
-    public Node(Point point){
-        super(point.getX(), point.getY(), point.getDirection());
+    private String nodeDirection;
+    public Node(){
         this.parent = null;
     }
 
-    public Node(Point point,Node parent){
-        super(point.getX(), point.getY(), point.getDirection());
-        this.parent = parent;
+    public Node(Node node){
+        this.point = new Point(node.getPoint());
+        this.parent = null;
     }
 
-    public Node(int x, int y, String direction, Node parent) {
-        super(x, y, direction);
-        this.parent = parent;
+
+
+    public String getNodeDirection() {
+        return nodeDirection;
+    }
+
+    public void setNodeDirection(String nodeDirection) {
+        this.nodeDirection = nodeDirection;
     }
 
     public Node getParent() {
@@ -30,10 +35,27 @@ public class Node extends Point{
     public Point getPoint(){
         if(point == null)
             point = new Point();
-        point.setX(this.getX());
-        point.setY(this.getY());
-        point.setDirection(this.getDirection());
+        point.setX(point.getX());
+        point.setY(point.getY());
+        point.setDirection(point.getDirection());
         return point;
+    }
+
+    public void setPoint(Point point) {
+        this.point = point;
+    }
+
+    public void goFront(Point point) {
+        this.point.setX(this.point.getX() + point.getX());
+        this.point.setY(this.point.getY() + point.getY());
+    }
+
+    public String getPointDirection(){
+        return this.point.getDirection();
+    }
+
+    public void setPointDirection(String direction){
+        this.point.setDirection(direction);
     }
 
     @Override
@@ -41,19 +63,18 @@ public class Node extends Point{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Point point = (Point) o;
+        Node node = (Node) o;
 
-        if (this.getX() != point.getX()) return false;
-        if (this.getY() != point.getY()) return false;
-        return this.getDirection() != null ? this.getDirection().equals(point.getDirection()) : point.getDirection() == null;
+        if (parent != null ? !parent.equals(node.parent) : node.parent != null) return false;
+        if (point != null ? !point.equals(node.point) : node.point != null) return false;
+        return nodeDirection != null ? nodeDirection.equals(node.nodeDirection) : node.nodeDirection == null;
     }
 
     @Override
     public int hashCode() {
-        int result = this.getX();
-        result = 31 * result + this.getY();
-        result = 31 * result + (this.getDirection() != null ? this.getDirection().hashCode() : 0);
+        int result = parent != null ? parent.hashCode() : 0;
+        result = 31 * result + (point != null ? point.hashCode() : 0);
+        result = 31 * result + (nodeDirection != null ? nodeDirection.hashCode() : 0);
         return result;
     }
-
 }

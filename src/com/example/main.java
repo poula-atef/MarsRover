@@ -67,8 +67,6 @@ public class main {
                     endpoint.setX(scan.nextInt());
                     System.out.print("Ending Y: ");
                     endpoint.setY(scan.nextInt());
-                    System.out.print("Ending Direction: ");
-                    endpoint.setDirection(scan.next());
 
                     System.out.print("Obstacles : ");
                     int size = scan.nextInt();
