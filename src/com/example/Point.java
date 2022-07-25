@@ -47,6 +47,8 @@ class Point{
     public void replacePoint(Point newPoint){
         this.x = newPoint.x;
         this.y = newPoint.y;
+        this.direction = newPoint.getDirection();
+
     }
 
     public void goFront(Point point) {

@@ -11,16 +11,11 @@ public class MarsRoverTask {
 
     private final Map<String,Integer> directionsIndexes;
 
-    public HashMap<Point, Integer> getObstacles() {
-        return obstacles;
-    }
+    private HashMap<Point,Integer>obstacles;
 
     public void setObstacles(HashMap<Point, Integer> obstacles) {
         this.obstacles = obstacles;
     }
-
-    private HashMap<Point,Integer>obstacles;
-
 
     public MarsRoverTask() {
 
@@ -50,12 +45,12 @@ public class MarsRoverTask {
         );
     }
 
-    public String PartI(Point index, String path){
+    public String PartI(Point startPoint, String path){
 
 
         path = path.toUpperCase();
         int size = path.length();
-        int idx = directionsIndexes.get(index.getDirection());
+        int idx = directionsIndexes.get(startPoint.getDirection());
 
         for (int i = 0; i < size; i++) {
             if(path.charAt(i) == 'R'){
@@ -65,25 +60,25 @@ public class MarsRoverTask {
                 idx = ((idx - 1) + 4) % 4;
             }
             else if(path.charAt(i) == 'F'){
-                index.goFront(directions.get(idx));
+                startPoint.goFront(directions.get(idx));
             }
             else if(path.charAt(i) == 'B'){
-                index.goBack(directions.get(idx));
+                startPoint.goBack(directions.get(idx));
             }
         }
-        return "(" + index.getX() + "," + index.getY() + ") " + directionsNames.get(idx);
+        return "(" + startPoint.getX() + "," + startPoint.getY() + ") " + directionsNames.get(idx);
     }
 
-    public String PartII(Point index, String path){
+    public String PartII(Point startPoint, String path){
 
 
         Point lastPoint = new Point();
         path = path.toUpperCase();
         int size = path.length();
-        int idx = directionsIndexes.get(index.getDirection());
+        int idx = directionsIndexes.get(startPoint.getDirection());
 
         int i = 0;
-        while(i < size && obstacles.get(index) == null){
+        while(i < size && obstacles.get(startPoint) == null){
             if(path.charAt(i) == 'R'){
                 idx = ((idx + 1) + 4) % 4;
             }
@@ -91,31 +86,36 @@ public class MarsRoverTask {
                 idx = ((idx - 1) + 4) % 4;
             }
             else if(path.charAt(i) == 'F'){
-                lastPoint.replacePoint(index);
-                index.goFront(directions.get(idx));
+                lastPoint.replacePoint(startPoint);
+                startPoint.goFront(directions.get(idx));
             }
             else if(path.charAt(i) == 'B'){
-                lastPoint.replacePoint(index);
-                index.goBack(directions.get(idx));
+                lastPoint.replacePoint(startPoint);
+                startPoint.goBack(directions.get(idx));
             }
             i++;
         }
 
 
-        if(obstacles.get(index) != null)
+        if(obstacles.get(startPoint) != null)
             return "(" + lastPoint.getX() + "," + lastPoint.getY() + ") " + directionsNames.get(idx) + " STOPPED";
 
-        return "(" + index.getX() + "," + index.getY() + ") " + directionsNames.get(idx);
+        return "(" + startPoint.getX() + "," + startPoint.getY() + ") " + directionsNames.get(idx);
     }
 
-    public String PartIII(Point index,Point endPoint){
+    //Implemented using BFS
+    public String PartIII(Point startPoint,Point endPoint){
 
         Queue<Node> q = new LinkedList<>();
         Map<Node,Integer>visited = new HashMap<>();
+        int directionIndex;
+        Point directionValue;
+        String pointDirection;
 
         Node parent = new Node();
-        parent.setPoint(index);
+        parent.setPoint(startPoint);
         q.add(parent);
+
 
         while(q.size() > 0){
 
@@ -128,72 +128,52 @@ public class MarsRoverTask {
                 continue;
 
 
+            // Adding the Forward point of the parent to the queue
             Node node = new Node(parent);
-            node.goFront(
-                    directions.get(
-                            directionsIndexes.get(
-                                    node.getPointDirection()
-                            )
-                    )
-            );
+
+            directionIndex = directionsIndexes.get(node.getPointDirection());
+            directionValue = directions.get(directionIndex);
+            node.goFront(directionValue);
             node.setParent(parent);
             node.setNodeDirection("F");
             if(visited.get(node) == null && obstacles.get(node.getPoint()) == null)
                 q.add(node);
+            ////////////////////////////////////////////////////////////////////////////////
 
 
-
-
-
+            // Adding the Right Directed point of the parent to the queue
             node = new Node(parent);
-            node.setPointDirection(
-                    directionsSymbols.get(
-                            (
-                                    directionsIndexes.get(
-                                            node.getPointDirection()
-                                    ) + 1
-                            ) % 4
-                    )
-            );
+            directionIndex = (directionsIndexes.get(node.getPointDirection()) + 1) % 4;
+            pointDirection = directionsSymbols.get(directionIndex);
+            node.setPointDirection(pointDirection);
             node.setParent(parent);
             node.setNodeDirection("R");
             if(visited.get(node) == null && obstacles.get(node.getPoint()) == null)
                 q.add(node);
+            ////////////////////////////////////////////////////////////////////////////////
 
 
-
-
+            // Adding the Left Directed point of the parent to the queue
             node = new Node(parent);
-            node.setPointDirection(
-                    directionsSymbols.get(
-                            (
-                                    directionsIndexes.get(
-                                            node.getPointDirection()
-                                    ) - 1 + 4
-                            ) % 4
-                    )
-            );
+            directionIndex = (directionsIndexes.get(node.getPointDirection()) - 1 + 4) % 4;
+            pointDirection = directionsSymbols.get(directionIndex);
+            node.setPointDirection(pointDirection);
+            node.setParent(parent);
             node.setParent(parent);
             node.setNodeDirection("L");
             if(visited.get(node) == null && obstacles.get(node.getPoint()) == null)
                 q.add(node);
+            ////////////////////////////////////////////////////////////////////////////////
 
         }
-        StringBuilder builder = new StringBuilder();
 
+        // Extracting the path from the final node
+        StringBuilder builder = new StringBuilder();
         while(parent.getParent() != null){
             builder.append(parent.getNodeDirection());
             parent = parent.getParent();
         }
-
-//        int size = builder.length();
-
-//        for (int i = 0; i < size - 1; i++) {
-//            if(builder.charAt(i) == builder.charAt(i + 1))
-//                builder.setCharAt(i,'F');
-//        }
-
-//        builder.deleteCharAt(builder.length() - 1);
+        /////////////////////////////////////////////////////
 
         return builder.reverse().toString();
     }

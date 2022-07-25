@@ -5,9 +5,7 @@ import java.util.*;
 import com.example.Point;
 
 public class main {
-    // E
-    // 4 2
-    //  FLFFFRFLB
+
 
     public static void main(String[] args) {
 
