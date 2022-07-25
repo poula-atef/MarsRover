@@ -81,7 +81,7 @@ public class main {
                     }
                     task.setObstacles(obstacles);
 
-                    System.out.println(task.PartIII(startPoint,endpoint));
+                    System.out.println("Result: " + task.PartIII(startPoint,endpoint));
                 }
                 default -> {
                     System.out.println("Thank you for exploring this solution, Good Bye.");

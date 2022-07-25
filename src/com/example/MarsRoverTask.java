@@ -1,16 +1,15 @@
 package com.example;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MarsRoverTask {
 
-    private List<Point> directions = null;
+    private final List<String> directionsSymbols;
+    private final List<Point> directions;
 
-    private List<String>directionsNames = null;
+    private final List<String>directionsNames;
 
-    private Map<String,Integer> directionsIndexes = null;
+    private final Map<String,Integer> directionsIndexes;
 
     public HashMap<Point, Integer> getObstacles() {
         return obstacles;
@@ -41,6 +40,13 @@ public class MarsRoverTask {
                 "E",1,
                 "S",2,
                 "W",3
+        );
+
+        directionsSymbols = List.of(
+                "N",
+                "E",
+                "S",
+                "W"
         );
     }
 
@@ -103,7 +109,85 @@ public class MarsRoverTask {
     }
 
     public String PartIII(Point index,Point endPoint){
-        return "Hello There This is PartIII !!!";
+
+        Queue<Node> q = new LinkedList<>();
+        Map<Node,Integer>visited = new HashMap<>();
+
+        Node parent = new Node(index);
+        q.add(parent);
+
+        while(q.size() > 0){
+
+            parent= q.poll();
+            visited.put(parent,1);
+
+            if(parent.getX() == endPoint.getX() && parent.getY() == endPoint.getY())
+                break;
+            if(obstacles.get(parent.getPoint()) != null)
+                continue;
+
+            Node node = new Node(parent);
+            node.goFront(
+                    directions.get(
+                            directionsIndexes.get(
+                                    node.getDirection()
+                            )
+                    )
+            );
+            node.setParent(parent);
+            if(visited.get(node) == null && obstacles.get(node.getPoint()) == null)
+                q.add(node);
+
+
+
+            node = new Node(parent);
+            node.setDirection(
+                    directionsSymbols.get(
+                            (
+                                    directionsIndexes.get(
+                                            node.getDirection()
+                                    ) + 1
+                            ) % 4
+                    )
+            );
+            node.setParent(parent);
+            if(visited.get(node) == null && obstacles.get(node.getPoint()) == null)
+                q.add(node);
+
+
+
+            node = new Node(parent);
+            node.setDirection(
+                    directionsSymbols.get(
+                            (
+                                    directionsIndexes.get(
+                                            node.getDirection()
+                                    ) - 1 + 4
+                            ) % 4
+                    )
+            );
+            node.setParent(parent);
+            if(visited.get(node) == null && obstacles.get(node.getPoint()) == null)
+                q.add(node);
+
+        }
+        StringBuilder builder = new StringBuilder();
+
+        while(parent != null){
+            builder.append(parent.getDirection());
+            parent = parent.getParent();
+        }
+
+        int size = builder.length();
+
+        for (int i = 0; i < size - 1; i++) {
+            if(builder.charAt(i) == builder.charAt(i + 1))
+                builder.setCharAt(i,'F');
+        }
+
+        builder.deleteCharAt(size - 1);
+
+        return builder.reverse().toString();
     }
 
 }
