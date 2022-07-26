@@ -85,7 +85,7 @@ Obstacles -> 6<br>
 (3,5)<br>
 (5,4)<br>
 (5,5)<br>
-![P3T2](https://user-images.githubusercontent.com/62244215/180886735-17d925f0-e418-46aa-b15b-48fb2c83bce2.png)
+![P3T2](https://user-images.githubusercontent.com/62244215/180886735-17d925f0-e418-46aa-b15b-48fb2c83bce2.png)<br>
 Result: FLFFFFLFFFFFF<br><br>
 
 ### Test 3:
@@ -99,7 +99,7 @@ Obstacles -> 7<br>
 (5,4)<br>
 (5,5)<br>
 (5,0)<br>
-![P3T3](https://user-images.githubusercontent.com/62244215/180886736-c3cf36b2-9fea-4a82-8578-f76b80217ca1.png)
+![P3T3](https://user-images.githubusercontent.com/62244215/180886736-c3cf36b2-9fea-4a82-8578-f76b80217ca1.png)<br>
 Result: RRFRFFFFLFFFF<br><br>
 
 ### Test 4:
@@ -114,7 +114,7 @@ Obstacles -> 8<br>
 (5,5)<br>
 (5,0)<br>
 (6,2)<br>
-![P3T4](https://user-images.githubusercontent.com/62244215/180886739-19f63bd3-8efe-4568-bd45-146dfcb7e5d3.png)
+![P3T4](https://user-images.githubusercontent.com/62244215/180886739-19f63bd3-8efe-4568-bd45-146dfcb7e5d3.png)<br>
 Result: RFRFFFFFRFFFFF<br><br>
 
 ### Test 5:
@@ -127,7 +127,7 @@ Obstacles -> 6<br>
 (-5,3)<br>
 (-5,4)<br>
 (-3,5)<br>
-![P3T5](https://user-images.githubusercontent.com/62244215/180886740-07a4486f-75d9-44fd-894c-03072ab8a824.png)
+![P3T5](https://user-images.githubusercontent.com/62244215/180886740-07a4486f-75d9-44fd-894c-03072ab8a824.png)<br>
 Result: RRFFFRFFRFLF<br><br>
 
 **The Form Of Input In Mission 3**<br>
